@@ -4,12 +4,33 @@ import edu.iu.habahram.remotecontroller.model.DeviceData;
 import edu.iu.habahram.remotecontroller.model.Light;
 import edu.iu.habahram.remotecontroller.model.RemoteControl;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class RemoteLoader implements  IRemoteLoader{
     HashMap<Integer, RemoteControl> remoteControls = new HashMap<>();
+
+
+
+
+    // Thread safe Singleton?:
+
+    private static  HashMap<Integer, RemoteControl> remoteControlsS = new HashMap<>();
+
+    public static HashMap<Integer, RemoteControl> getInstance() {
+        /*
+        if (remoteControlsS == null) {
+            remoteControlsS = new ASingleton();
+        }
+        */
+
+        return remoteControlsS;
+    }
+
+
+
+
+
     @Override
     public void setup(int id, List<DeviceData> devices) {
         RemoteControl remoteControl = new RemoteControl(devices.size());
